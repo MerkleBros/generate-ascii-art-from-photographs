@@ -1,6 +1,10 @@
 import React from 'react';
+import ImageForm from './ImageForm';
 
-const App = ({ title }) =>
-  <div>{title}</div>;
+const App = ({ title }) => {
+  return (
+    <ImageForm />
+  );
+}
 
 export default App;
