@@ -1,2 +1,3 @@
 -r requirements.in
 progressbar2
+pylint
