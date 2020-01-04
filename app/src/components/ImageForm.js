@@ -26,23 +26,42 @@ export default function ImageForm(props) {
       // convert image file to base64 string
 
       console.log("reader.result: ", reader.result)
+      const result = reader.result.substring(reader.result.indexOf(",") + 1)
+      console.log("result: ", result)
       console.log("formData: ", formData)
       console.log('images.files[0]: ', images.files[0])
       console.log('images.urls[0]: ', images.urls[0])
       try {
         const response = await fetch(
-          "https://cors-anywhere.herokuapp.com/https://r76qcc9zjc.execute-api.us-east-1.amazonaws.com/dev/generate_ascii"
+          "https://cors-anywhere.herokuapp.com/https://ovr5yyzvza.execute-api.us-east-1.amazonaws.com/dev/generate_ascii"
           , { method: 'POST'
             , mode: 'cors' // no-cors, *cors, same-origin
-            , isBase64Encoded: true
             , headers: 
-              { 'Content-Type': 'application/x-www-form-urlencoded'
-              , 'Accept':       'image/png;base64'
+              { 'Content-Type': 'image/jpg'
+              , 'Accept': 'image/png'
               }
-            , body: reader.result // body data type must match "Content-Type" header
+            , body: images.files[0] // body data type must match "Content-Type" header
             }); 
 
+        console.log("response:")
         console.log(response)
+        const blob = await response.blob()
+        console.log("response blob: ", blob)
+        const file = new File([blob], "Response.png")
+        console.log("file: ", file)
+        const url = URL.createObjectURL(file)
+        console.log("url: ", url)
+
+        const img = new Image()
+        img.src = url
+        document.body.append(img)
+
+        const link = document.createElement("a") 
+        link.download = "response.png"
+        link.href = url;
+        link.text = "Download here"
+        document.body.append(link)
+        
       } catch(e) {
         console.log('error in fetch: ', e)
       }
