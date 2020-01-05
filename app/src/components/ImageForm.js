@@ -1,36 +1,44 @@
 import React, { useState } from "react";
+import { render } from 'react-dom';
+import Gallery from 'react-grid-gallery';
 
 export default function ImageForm(props) {
-  const [images, setImages] = useState({urls: [], files: []});
+  const [images, setImages] = useState([]);
 
   const handleChange = e => {
+    const thumbnailHeight = props.thumbnailHeight
     const files = Array.from(e.target.files)
-    const urls = files.map(file => URL.createObjectURL(file))
-    setImages({
-      urls: urls,
-      files: files
-    });
-    console.log("In handleChange, image: ", images)
+
+    const previewImages = 
+      files
+        .map(file => {
+          const image = new Image();
+          image.src = URL.createObjectURL(file);
+          return { file: file
+                 , src: image.src
+                 , thumbnail: image.src
+                 , thumbnailHeight: thumbnailHeight
+                 , thumbnailWidth: (image.width / image.height) * thumbnailHeight
+    }});
+
+    setImages(previewImages)
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     console.log("in handleSubmit")
 
-    const formData = new FormData()
-    formData.append('content', images.files[0])
-
     let reader = new FileReader();
-    reader.readAsDataURL(images.files[0]);
+    reader.readAsDataURL(images[0].file);
     reader.addEventListener("load", async function () {
       // convert image file to base64 string
 
       console.log("reader.result: ", reader.result)
       const result = reader.result.substring(reader.result.indexOf(",") + 1)
       console.log("result: ", result)
-      console.log("formData: ", formData)
-      console.log('images.files[0]: ', images.files[0])
-      console.log('images.urls[0]: ', images.urls[0])
+      console.log('images[0].file: ', images[0].file)
+      console.log('images[0].src: ', images[0].src)
       try {
         const response = await fetch(
           "https://cors-anywhere.herokuapp.com/https://ovr5yyzvza.execute-api.us-east-1.amazonaws.com/dev/generate_ascii"
@@ -40,7 +48,7 @@ export default function ImageForm(props) {
               { 'Content-Type': 'image/jpg'
               , 'Accept': 'image/png'
               }
-            , body: images.files[0] // body data type must match "Content-Type" header
+            , body: images[0].file // body data type must match "Content-Type" header
             }); 
 
         console.log("response:")
@@ -69,18 +77,21 @@ export default function ImageForm(props) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Upload images:
-        <input 
-          type='file' 
-          multiple
-          accept='.png, .jpg, .jpeg'
-          id='image-input'
-          onChange={e => handleChange(e)}
-        />
-      </label>
-      <input type="submit" value="Submit"/>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Upload images:
+          <input 
+            type='file' 
+            multiple
+            accept='.png, .jpg, .jpeg'
+            id='image-input'
+            onChange={e => handleChange(e)}
+          />
+        </label>
+        <input type="submit" value="Submit"/>
+      </form>
+      <Gallery images={images} />
+    </>
   );
 }
