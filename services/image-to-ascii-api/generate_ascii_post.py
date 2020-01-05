@@ -1,5 +1,6 @@
 import base64
 import io
+import os
 import json
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
@@ -8,6 +9,12 @@ from colour import Color
 def generate_ascii_post(event, context):
 
     try:
+
+        print("## ENVIRONMENT")
+        print(os.environ)
+        print("## EVENT")
+        print(event)
+
         response = {
             "statusCode": 500,
             "isBase64Encoded": True,
@@ -25,7 +32,12 @@ def generate_ascii_post(event, context):
 
 
         # TODO: Remove, hard coded to see if function works
+        print("## RETRIEVING INPUT FILE")
+
         input_file = event["body"]
+
+        print(input_file)
+
         HORIZONTAL_SAMPLING_RATE = 0.1
         GCF = 1
         color1 = "black"
@@ -44,8 +56,13 @@ def generate_ascii_post(event, context):
         height_width_ratio = letter_height/letter_width
 
         #open the input file
+        print("## BASE64 DECODING THE INPUT FILE")
         message = base64.b64decode(input_file)
+        print(message)
+        print("## IMAGE FILE TO BUFFER")
         buffer = io.BytesIO(message)
+        buffer.seek(0)
+        print("## GET IMAGE FROM BUFFER")
         img = Image.open(buffer)
 
         #Calculate how many ascii letters are needed on the width and height
@@ -54,6 +71,7 @@ def generate_ascii_post(event, context):
         letter_size = (width_by_letter, height_by_letter)
 
         #Resize the image based on the symbol width and height
+        print("## RESIZING IMAGE")
         img = img.resize(letter_size)
 
         #Get the RGB color values of each sampled pixel and convert them to graycolor using average.
@@ -89,10 +107,18 @@ def generate_ascii_post(event, context):
             draw.text((left_padding, y), line, color.hex, font=font)
             y += letter_height
 
+        print("## FINISHED PRINTING ASCII IMAGE")
+
         # Save the image file
+        print("## RETRIEVING IMAGE FROM BUFFER")
         buffered = io.BytesIO()
+        print("## SAVING IMAGE as PNG")
         new_image.save(buffered, format="PNG")
+        print("## BASE 64 ENCODING IMAGE")
         image_string = base64.b64encode(buffered.getvalue()).decode('ascii')
+
+        print("## base64 image_string:")
+        print(image_string)
 
         response = {
             "statusCode": 200,
@@ -101,8 +127,15 @@ def generate_ascii_post(event, context):
             "body": image_string
         }
 
+        print("## response:")
+        print(response)
+
         return response
 
     except Exception as err:
+
+        print("## ERROR")
+        print("Error: {}".format(err))
+
         response["body"] = "Error {}".format(err)
         return response
