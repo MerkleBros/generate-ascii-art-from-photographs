@@ -1,7 +1,8 @@
 MIT License
 
-Copyright (c) 2017 Shanshan Wang
 Copyright (c) 2019 Patrick McCarver
+Copyright (c) 2016-2018 Ben Howell
+Copyright (c) 2017 Shanshan Wang
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
