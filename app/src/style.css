@@ -1,0 +1,103 @@
+:root {
+    --pinkpunk: #FF6AD5;
+    --mauve: #C774E8;
+    --lightpurple: #AD8CFF;
+    --bluesuede: #8795E8;
+    --babyblue: #94D0FF;
+}
+
+.form-title {
+  /* A fun border style from kotke.org */
+  border-radius: 15px;
+  -webkit-box-shadow:
+          inset #19d4ff 0 0 0 5px,
+          inset #18cdf7 0 0 0 1px,
+          inset #53dfff 0 0 0 10px,
+          inset #50d8f7 0 0 0 11px,
+          inset #8ce9ff 0 0 0 16px,
+          inset #88e2f7 0 0 0 17px,
+          inset #c5f4ff 0 0 0 22px,
+          inset #bfecf7 0 0 0 30px;
+  -moz-box-shadow:
+          inset #19d4ff 0 0 0 5px,
+          inset #18cdf7 0 0 0 1px,
+          inset #53dfff 0 0 0 10px,
+          inset #50d8f7 0 0 0 11px,
+          inset #8ce9ff 0 0 0 16px,
+          inset #88e2f7 0 0 0 17px,
+          inset #c5f4ff 0 0 0 22px,
+          inset #bfecf7 0 0 0 30px;
+  box-shadow:
+          inset #19d4ff 0 0 0 5px,
+          inset #18cdf7 0 0 0 1px,
+          inset #53dfff 0 0 0 10px,
+          inset #50d8f7 0 0 0 11px,
+          inset #8ce9ff 0 0 0 16px,
+          inset #88e2f7 0 0 0 17px,
+          inset #c5f4ff 0 0 0 22px,
+          inset #bfecf7 0 0 0 30px;
+
+}
+
+.form-title {
+  font-size: 4vw;
+  background: var(--pinkpunk);
+  padding: 0.2em;
+  text-align: center;
+  border: 0.1em solid blue;
+  height: 2em;
+  padding-top: 1em;
+}
+
+form {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border: 0.3em solid blue;
+  border-radius: 70px;
+}
+
+.custom-file-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.1em;
+  margin: auto;
+  font-size: 3.5vw;
+  color: black;
+  text-align: center;
+  height: 8vh;
+  background: #88e2f7;
+  opacity: 0.9;
+  border-radius: 65px 65px 0 0;
+  cursor: pointer;
+}
+
+.custom-file-upload:hover {
+  opacity: 0.7;
+}
+
+#image-input {
+  display: none;
+}
+
+#submit-images {
+  display: none;
+}
+
+.submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.1em;
+  margin: auto;
+  font-size: 3.5vw;
+  text-align: center;
+  height: 8vh;
+  background: var(--pinkpunk);
+  border-radius: 0 0 65px 65px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  opacity: 0.9;
+}

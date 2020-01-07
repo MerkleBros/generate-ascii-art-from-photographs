@@ -128,16 +128,24 @@ export default function ImageForm(props) {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label>
-          Upload file
-          <input 
-            id='image-input'
-            type='file' 
-            multiple
-            accept='.png, .jpg, .jpeg'
-            onChange={e => handleBrowseFiles(e)} />
+        <label 
+          for="image-input" 
+          class="custom-file-upload">
+          {String.fromCodePoint(0x1F4C2)} Upload
         </label>
         <input 
+          id='image-input'
+          type='file' 
+          multiple
+          accept='.png, .jpg, .jpeg'
+          onChange={e => handleBrowseFiles(e)} />
+        <label 
+          for="submit-images" 
+          class="submit-button">
+          {String.fromCodePoint(0x1F970)} Process images
+        </label>
+        <input 
+          id="submit-images"
           type="submit" 
           value="Submit"/>
       </form>
