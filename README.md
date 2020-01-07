@@ -1,3 +1,4 @@
+[Demo (but only returns black and white images currently)](https://5e14fb4fd88c41979c0b7e33--ascii-from-images.netlify.com/)
 ### Generate color gradient ASCII art from photographs
 Python3 tool for generating ASCII images locally in batches and a Serverless API for converting images into ASCII art. By default the batch ASCII art is generated with a randomly selected vapor wave color gradient. The API currently only returns black and white ascii images.
 
@@ -12,7 +13,7 @@ The Serverless framework is a tool for easily deploying AWS Lambda functions and
 
 Send a `.jpg` or `.png` file to the API and receive a black and white ascii image. Below `input.jpg` is sent to the API and `output_two.png` is received.
 
-`cd examples/ && curl -X POST --data-binary @input.jpg AWS_GATEWAY_API_ENDPOINT_GOES_HERE -o output_two.png`
+`cd examples/ && curl -X POST --data-binary @input.jpg https://ovr5yyzvza.execute-api.us-east-1.amazonaws.com/dev/generate_ascii -o output_two.png`
 
 #### Batch conversion setup
 Project uses `pip-tools` and virtual environment (`venv`) for managing dependencies.
