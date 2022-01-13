@@ -4,16 +4,30 @@
 #
 #    pip-compile dev-requirements.in
 #
-astroid==2.3.3            # via pylint
+astroid==2.3.3
+    # via pylint
 colour==0.1.5
-isort==4.3.21             # via pylint
-lazy-object-proxy==1.4.3  # via astroid
-mccabe==0.6.1             # via pylint
+    # via -r requirements.in
+isort==4.3.21
+    # via pylint
+lazy-object-proxy==1.4.3
+    # via astroid
+mccabe==0.6.1
+    # via pylint
 numpy==1.18.0
-pillow==6.2.1
+    # via -r requirements.in
+pillow==9.0.0
+    # via -r requirements.in
 progressbar2==3.47.0
+    # via -r dev-requirements.in
 pylint==2.4.4
-python-utils==2.3.0       # via progressbar2
-six==1.13.0               # via astroid, progressbar2, python-utils
-typed-ast==1.4.0          # via astroid
-wrapt==1.11.2             # via astroid
+    # via -r dev-requirements.in
+python-utils==2.3.0
+    # via progressbar2
+six==1.13.0
+    # via
+    #   astroid
+    #   progressbar2
+    #   python-utils
+wrapt==1.11.2
+    # via astroid
